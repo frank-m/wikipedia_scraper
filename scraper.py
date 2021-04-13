@@ -7,7 +7,8 @@ class Collection:
     def __init__(self, name: str):
          self.name = name
     
-    def get_item(self, _item_list: str, number: int):
+    @staticmethod
+    def get_item(_item_list: str, number: int):
         return next((item for item in _item_list if item.number == number), None)
 
     def add_item(self, classDef: object, _item_list: str, number: int, *args):
