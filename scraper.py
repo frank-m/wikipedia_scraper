@@ -15,7 +15,7 @@ class Collection:
         if not item:
             _item_list.append(classDef(number, *args))
         else:
-            print(f"{item.name} {number} already exists in {self.name}")
+            print(f"{type(item).__name__} {number} already exists in {self.name}")
 
     def write_out(self, location: str, _item_list: list, subitem: bool = False):
         path = location + '/' + self.name
@@ -102,6 +102,7 @@ show.add_season(1)
 show.add_episode(1, 1, 'Pilot', '2008-09-09')
 show.add_episode(1, 2, 'The Same Old Story', '2008-09-16')
 
+show.add_season(2)
 show.add_season(2)
 show.add_episode(2, 1, "A New Day in the Old Town", "2009-09-17")
 show.add_episode(2, 2, "Night of Desirable Objects", "2009-09-24")
