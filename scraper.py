@@ -45,7 +45,7 @@ class TVShow(Collection):
         return self.get_item(self._seasons, season_number)  
 
     def add_season(self, season_number: int):
-        return self.add_item(Season, self._seasons, season_number, self.name)
+        self.add_item(Season, self._seasons, season_number, self.name)
 
     def get_episode(self, season_number: int, episode_number: int):
         season = self.get_season(season_number)
@@ -80,7 +80,7 @@ class Season(Collection):
         return self.get_item(self._episodes, episode_number) 
 
     def add_episode(self, episode_number: int, name: str, date: str):
-        return self.add_item(Episode, self._episodes, episode_number, name, date, self.number, self.show)
+        self.add_item(Episode, self._episodes, episode_number, name, date, self.number, self.show)
 
     def write_out(self, location: str):
         super().write_out(location, self._episodes)
