@@ -11,19 +11,20 @@ class Collection:
         return next((item for item in _item_list if item.number == number), None)
 
     def add_item(self, classDef: object, _item_list: str, number: int, *args):
-        if not self.get_item(_item_list, number):
+        item = self.get_item(_item_list, number)
+        if not item:
             _item_list.append(classDef(number, *args))
         else:
-            print(f"{classDef.name} {number} already exists in {self.name}")
+            print(f"{item.name} {number} already exists in {self.name}")
 
-    def write_out(self, location: str, _item_list: list, classDef: object = None):
+    def write_out(self, location: str, _item_list: list, subitem: bool = False):
         path = location + '/' + self.name
         if not os.path.isdir(path):
             os.mkdir(path)
 
-        if classDef:
+        if subitem:
             for item in _item_list:
-                classDef.write_out(item, path)
+                item.write_out(path)
         else: 
             filename = path + '/' + self.name + '.json'
             with open(filename, 'w') as outfile:
@@ -60,7 +61,7 @@ class TVShow(Collection):
             print(f"The Season {season_number} does not exist.")
 
     def write_out(self, location: str):
-        super().write_out(location, self._seasons, Season)
+        super().write_out(location, self._seasons, True)
 
 
 class Season(Collection):
