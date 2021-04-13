@@ -62,7 +62,7 @@ class TVShow(Collection):
             print(f"The Season {season_number} does not exist.")
 
     def write_out(self, location: str):
-        self.write_out(location, self._seasons, True)
+        super().write_out(location, self._seasons, True)
 
 
 class Season(Collection):
@@ -83,7 +83,7 @@ class Season(Collection):
         return self.add_item(Episode, self._episodes, episode_number, name, date, self.number, self.show)
 
     def write_out(self, location: str):
-        self.write_out(location, self._episodes)
+        super().write_out(location, self._episodes)
 
 
 class Episode:
