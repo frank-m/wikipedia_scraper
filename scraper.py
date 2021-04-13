@@ -20,7 +20,7 @@ class Collection:
     def write_out(self, location: str, _item_list: list, subitem: bool = False):
         path = location + '/' + self.name
         if not os.path.isdir(path):
-            os.mkdir(path)
+            os.makedirs(path)
 
         if subitem:
             for item in _item_list:
