@@ -3,7 +3,6 @@ import requests
 import os
 import json
 
-
 class Collection:
     def __init__(self, name: str):
          self.name = name
@@ -11,13 +10,13 @@ class Collection:
     def get_item(self, _item_list: str, number: int):
         return next((item for item in _item_list if item.number == number), None)
 
-    def add_item(self, classDef, _item_list: str, number: int, *args):
+    def add_item(self, classDef: object, _item_list: str, number: int, *args):
         if not self.get_item(_item_list, number):
             _item_list.append(classDef(number, *args))
         else:
             print(f"{classDef.name} {number} already exists in {self.name}")
 
-    def write_out(self, location, _item_list, classDef=None):
+    def write_out(self, location: str, _item_list: list, classDef: object = None):
         path = location + '/' + self.name
         if not os.path.isdir(path):
             os.mkdir(path)
@@ -43,10 +42,8 @@ class TVShow(Collection):
     def get_season(self, season_number: int):
         return super().get_item(self._seasons, season_number)  
 
-
     def add_season(self, season_number: int):
         return super().add_item(Season, self._seasons, season_number, self.name)
-
 
     def get_episode(self, season_number: int, episode_number: int):
         season = self.get_season(season_number)
@@ -55,7 +52,6 @@ class TVShow(Collection):
         else:
             print(f"The Season {season_number} does not exist.")
             
-
     def add_episode(self, season_number: int, episode_number: int, name: str, date: str):
         season = self.get_season(season_number)
         if season:
@@ -63,7 +59,7 @@ class TVShow(Collection):
         else:
             print(f"The Season {season_number} does not exist.")
 
-    def write_out(self, location):
+    def write_out(self, location: str):
         super().write_out(location, self._seasons, Season)
 
 
@@ -78,13 +74,13 @@ class Season(Collection):
     def episodes(self):
         return self._episodes
 
-    def get_episode(self, episode_number):
+    def get_episode(self, episode_number: int):
         return super().get_item(self._episodes, episode_number) 
 
     def add_episode(self, episode_number: int, name: str, date: str):
         return super().add_item(Episode, self._episodes, episode_number, name, date, self.number, self.show)
 
-    def write_out(self, location):
+    def write_out(self, location: str):
         super().write_out(location, self._episodes)
 
 
